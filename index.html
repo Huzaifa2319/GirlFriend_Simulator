@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>GirlFriend simulator</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: white;
+      }
+
+      .chat-container {
+        /* max-width: 400px; */
+
+        margin: 20px auto;
+        background-color: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .chat-box {
+        background-color: #ffe5e5;
+        padding: 15px;
+        height: 50vh;
+        overflow: hidden;
+        overflow-y: scroll;
+      }
+
+      .message {
+        padding: 8px 12px;
+        margin-bottom: 8px;
+        border-radius: 8px;
+        max-width: 70%;
+      }
+
+      .received {
+        background-color: #d1ffaf;
+        align-self: flex-start;
+        margin-right: auto;
+      }
+
+      .sent {
+        background-color: #aeddfe;
+        align-self: flex-end;
+        margin-left: auto;
+      }
+
+      .input-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        border-top: 1px solid #ccc;
+      }
+
+      #message-input {
+        flex: 1;
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        margin-right: 10px;
+      }
+
+      #send-button {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        background-color: #128c7e;
+        color: #fff;
+        cursor: pointer;
+        outline: none;
+      }
+      #send-button:hover {
+        background-color: #1eb6a4;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="chat-container" id="chat-container">
+      <div class="chat-box" id="chat-box">
+        <div class="message received">
+          <span class="message-content">Hello!</span>
+        </div>
+        <div class="message sent">
+          <span class="message-content">Hi there!</span>
+        </div>
+        <!-- Add more messages here -->
+      </div>
+      <div class="input-container">
+        <input
+          type="text"
+          id="message-input"
+          placeholder="Type a message..."
+          onkeydown="sendMessageOnEnter(event)"
+        />
+        <button onclick="sendMessage()" id="send-button">Send</button>
+      </div>
+    </div>
+  </body>
+  <script>
+    function sendMessage() {
+      const messageInput = document.getElementById("message-input");
+      const chatBox = document.getElementById("chat-box");
+
+      if (messageInput.value !== "") {
+        const message = `
+      <div class="message sent">
+        <span class="message-content">${messageInput.value}</span>
+      </div>
+    `;
+
+        let arr = [
+          " ",
+          "hmm",
+          "acha",
+          "ok",
+          "hn",
+          "achaa achaa",
+          "hmmmmm",
+          "thk",
+          "mera dmag mt khrab kro",
+          "jao yr",
+        ];
+        const r = Math.floor(Math.random() * 9) + 1; //Bettween 1 and 10
+
+        const rec = `
+      <div class="message  received">
+        <span class="message-content">${arr[r]}</span>
+      </div>
+    `;
+        chatBox.innerHTML += message;
+        chatBox.innerHTML += rec;
+        messageInput.value = "";
+
+        // Scroll to the bottom of the chat
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }
+    }
+    function sendMessageOnEnter(event) {
+      if (event.key === "Enter") {
+        sendMessage();
+      }
+    }
+  </script>
+</html>
